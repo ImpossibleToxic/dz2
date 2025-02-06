@@ -1,42 +1,44 @@
-<!DOCTYPE html>
-<html lang="ru">
+<!DOCTYPE html> <!-- Определяет тип документа как HTML5 -->
+<html lang="ru"> <!-- Указывает, что язык страницы - русский -->
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Гостевая книга</title>
+    <meta charset="UTF-8"> <!-- Устанавливает кодировку символов на UTF-8 для корректного отображения текста -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Настройки для адаптивного дизайна на мобильных устройствах -->
+    <title>Гостевая книга</title> <!-- Заголовок страницы, отображаемый в вкладке браузера -->
 </head>
 <body>
-<h1>Гостевая книга</h1>
+<h1>Гостевая книга</h1> <!-- Основной заголовок страницы -->
 
-<form method="POST" action="./script.php">
-    <label for="name">Имя:</label>
-    <input type="text" id="name" name="name" required>
-    <br><br>
+<!-- Форма для отправки сообщений -->
+<form method="POST" action="./script.php"> <!-- Метод POST используется для отправки данных на script.php -->
+    <label for="name">Имя:</label> <!-- Метка для поля ввода имени -->
+    <input type="text" id="name" name="name" required> <!-- Поле ввода текста для имени (обязательно для заполнения) -->
+    <br><br> <!-- Разделитель (двойной перенос строки) -->
 
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required>
-    <br><br>
+    <label for="email">Email:</label> <!-- Метка для поля ввода email -->
+    <input type="email" id="email" name="email" required> <!-- Поле ввода email с проверкой формата (обязательно для заполнения) -->
+    <br><br> <!-- Разделитель -->
 
-    <label for="message">Сообщение:</label>
-    <textarea id="message" name="message" required></textarea>
-    <br><br>
+    <label for="message">Сообщение:</label> <!-- Метка для текстового поля сообщения -->
+    <textarea id="message" name="message" required></textarea> <!-- Текстовое поле для ввода сообщения (обязательно для заполнения) -->
+    <br><br> <!-- Разделитель -->
 
-    <button type="submit">Отправить</button>
+    <button type="submit">Отправить</button> <!-- Кнопка для отправки формы -->
 </form>
 
-<h2>Сообщения:</h2>
-<?php if (!empty($messages)): ?>
-<ul>
-    <?php foreach ($messages as $msg): ?>
-    <?php list($name, $email, $dateTime, $message) = explode('|', $msg); ?>
-    <li>
-        <strong><?= htmlspecialchars($name); ?></strong> (<?= htmlspecialchars($email); ?>) - <?= htmlspecialchars($dateTime); ?><br>
-        <?= $message; ?>
-    </li>
-    <?php endforeach; ?>
-</ul>
-<?php else: ?>
-<p>Нет сообщений.</p>
-<?php endif; ?>
+<h2>Сообщения:</h2> <!-- Заголовок раздела, где будут отображаться сообщения -->
+<?php if (!empty($messages)): ?> <!-- Проверяет, не пуст ли массив $messages -->
+<ul> <!-- Начало ненумерованного списка -->
+    <?php foreach ($messages as $msg): ?> <!-- Перебирает каждое сообщение в массиве $messages -->
+    <?php list($name, $email, $dateTime, $message) = explode('|', $msg); ?> <!-- Разделяет строку сообщения на составляющие по символу '|' и присваивает их переменным -->
+    <li> <!-- Начало элемента списка -->
+        <strong><?= htmlspecialchars($name); ?></strong> <!-- Выводит имя с применением htmlspecialchars для предотвращения XSS-атак -->
+        (<?= htmlspecialchars($email); ?>) - <?= htmlspecialchars($dateTime); ?><br> <!-- Выводит email и дату/время с защитой от XSS -->
+        <?= $message; ?> <!-- Выводит сообщение без дополнительной обработки (предполагается, что оно безопасно) -->
+    </li> <!-- Закрывающий тег элемента списка -->
+    <?php endforeach; ?> <!-- Конец цикла foreach -->
+</ul> <!-- Закрывающий тег ненумерованного списка -->
+<?php else: ?> <!-- Если массив $messages пустой -->
+<p>Нет сообщений.</p> <!-- Сообщение о том, что нет доступных сообщений -->
+<?php endif; ?> <!-- Закрывающий тег условия if -->
 </body>
 </html>
